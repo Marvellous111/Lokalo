@@ -13,7 +13,7 @@ const handleQlooService = (suggestions: any[]) => {
 }
 
 
-onMount(async () =>{
+onMounted(async () =>{
   const { hotels } = useQlooServices();
   var sug = ref<Array|null>(null);
   const location_data = { latitude: locStore.position.lat, longitude: locStore.position.lng };
