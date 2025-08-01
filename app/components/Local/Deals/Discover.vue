@@ -4,7 +4,7 @@ const images = ref<Array>([]);
 
 const handleQlooService = (suggestions: any[]) => {
   for (let i=0; i < suggestions.length; i++) {
-    images.value.push(suggestions.properties.images[0].url)
+    images.value.push(suggestions[i].properties.images[0].url)
   }
   console.log("Image values are")
   console.log(images.value)
