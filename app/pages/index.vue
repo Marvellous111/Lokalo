@@ -57,16 +57,11 @@ Each cannot exist at the same time?
   flex-direction: column;
   position: relative;
   row-gap: 50px;
-  // .error-toast {
-  //   z-index: 30;
-  //   position: fixed;
-  //   top: 0;
-  //   left: -20px;
-  //   width: stretch;
-  //   height: stretch;
-  //   visibility: hidden;
-  //   opacity: 0;
-  //   transition: visibility 0.3s ease-in, opacity 0.3s ease-in;
+  // @include responsive(mobile) {
+  //   min-height: 120px;
+  //   max-height:auto;
+  //   height:120px;
+  //   width: 93%;
   // }
   .deals-section { 
     width: stretch;

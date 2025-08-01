@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 
-const images = [
-  "~/assets/images/picture.png",
-];
+const images = ref<Array|null>(null);
 
-const hello = () => {
-  console.log("Hello")
+const handleQlooService = (suggestions: any[]) => {
+  images.value = suggestions
+    .flatMap(item => item.properties?.images?.map((img: { url: string }) => img.url) || [])
+  console.log(images.value)
 }
 
 </script>
@@ -21,7 +21,7 @@ const hello = () => {
           Explore the best stays, dinning and stores around you picked for the day.
         </span>
       </div>
-      <GeneralReusablesSearchDSearchBar />
+      <GeneralReusablesSearchDSearchBar @get-qloo-service="handleQlooService" />
     </section>
     <section class="deals-display">
       <LocalDiscoverDisplay

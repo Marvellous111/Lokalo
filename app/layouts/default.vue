@@ -237,6 +237,7 @@ onBeforeMount(async () => {
             display: flex;
             align-items: center;
             justify-content: center;
+            color: #121212;
           }
           span {
             color: #121212;

@@ -4,10 +4,9 @@ import { BedSingle, Utensils, Store, Search } from 'lucide-vue-next';
 const locStore = useLocStore();
 const errorStore = useErrorStore();
 
-// const emits = defineEmits<{
-//   (e: 'get_qloo_service', product: Array): void // Perhpas i can remove the name and just emit the product, check it later
-// }>()
-
+const emits = defineEmits<{
+  (e: 'get-qloo-service', suggestions: any[]): void
+}>()
 // Removing stores feature for now.
 
 const search_type = ["Stays", "Dining"];
@@ -28,7 +27,10 @@ const changeDisplayType = async (changed_search_type: string) => {
     sug.value = await restaurants(location_data, locStore.city, 3)
     //emits('get_qloo_service', product=sug.value)
   }
-  console.log(sug.value)
+  if (sug.value) {
+    emits('get-qloo-service', sug.value)
+    console.log(sug.value)
+  }
 }
 
 </script>
