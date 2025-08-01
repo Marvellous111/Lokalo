@@ -18,6 +18,7 @@ const { restaurants, hotels, stores } = useQlooServices();
 const changeDisplayType = async (changed_search_type: string) => {
   selected_search_type.value = changed_search_type
   search_placeholder.value = `Search for ${changed_search_type} around you`
+  console.log("DSEARCH BAR INIT")
   var sug = ref<Array|null>(null);
   const location_data = { latitude: locStore.position.lat, longitude: locStore.position.lng };
   if (changed_search_type == 'Stays') {
