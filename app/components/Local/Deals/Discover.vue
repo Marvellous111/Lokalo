@@ -3,9 +3,9 @@
 const images = ref<Array|null>(null);
 
 const handleQlooService = (suggestions: any[]) => {
-  for (let i=0; i < suggestions.length; i++) {
-    images.value.push(suggestions.properties.images[0].url)
-  }
+  // for (let i=0; i < suggestions.length; i++) {
+  //   images.value.push(suggestions.properties.images[0].url)
+  // }
   console.log(images.value)
 }
 
@@ -25,9 +25,7 @@ const handleQlooService = (suggestions: any[]) => {
       <GeneralReusablesSearchDSearchBar @get-qloo-service="handleQlooService" />
     </section>
     <section class="deals-display">
-      <LocalDiscoverDisplay
-      :images="images"
-      />
+      <LocalDiscoverDisplay />
     </section>
   </div>
 </template>

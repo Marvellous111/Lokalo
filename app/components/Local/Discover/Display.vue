@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
-const props = defineProps<{
+const props = defineProps({
   images: {
-    required: true,
+    required: false,
     type: Array
   }
-}>()
+})
 
 const deal_size = ref(0)
 const currentIndex = ref(0)
