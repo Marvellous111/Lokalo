@@ -38,7 +38,7 @@ onMounted(async () =>{
       <GeneralReusablesSearchDSearchBar @get-qloo-service="handleQlooService" />
     </section>
     <section class="deals-display">
-      <LocalDiscoverDisplay />
+      <LocalDiscoverDisplay :images="images" />
     </section>
   </div>
 </template>
