@@ -6,6 +6,8 @@ useSeoMeta({
   title: 'Lokalo | Stays, dinnings, shops and more for the best experience'
 })
 
+const is_mobile = false;
+
 
 
 // const errorToast = ref<HTMLElement|null>(null);
@@ -37,7 +39,7 @@ Each cannot exist at the same time?
         @error_function="changeError"
       />
     </section> -->
-    <section class="searchbar-mobile">
+    <section class="searchbar-mobile" v-if="is_mobile">
       <GeneralReusablesSearchBar />
     </section>
     <section class="discover-section">
