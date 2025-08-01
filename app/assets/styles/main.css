@@ -1,0 +1,83 @@
+html, body {
+  margin: 0;
+  scroll-behaviour: smooth;
+}
+
+
+:root::-webkit-scrollbar{
+  display: none;
+}
+
+:root {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+
+span::selection {
+  background: #90ee90;
+}
+
+label::selection {
+  background: #90ee90;
+}
+
+/* input::placeholder {
+  background: #90ee90;
+} */
+
+@font-face {
+  src: url(~/assets/fonts/Geist-Regular.woff2);
+  font-family: "geist-regular"
+}
+
+.geist-regular {
+  letter-spacing: 0px;
+  font-family: "geist-regular";
+  transition: selection 0.1s ease-in;
+}
+
+@font-face {
+  src: url(~/assets/fonts/Geist-Bold.woff2);
+  font-family: "geist-bold"
+}
+
+.geist-bold {
+  letter-spacing: 0px;
+  font-family: "geist-bold";
+  transition: selection 0.1s ease-in;
+}
+
+@font-face {
+  src: url(~/assets/fonts/Geist-Medium.woff2);
+  font-family: "geist-medium"
+}
+
+.geist-medium {
+  font-weight: normal;
+  letter-spacing: -0.7px;
+  font-family: "geist-medium";
+  transition: selection 0.1s ease-in;
+}
+
+@font-face {
+  src: url(~/assets/fonts/Geist-SemiBold.woff2);
+  font-family: "geist-semibold"
+}
+
+.geist-semibold {
+  letter-spacing: 0px;
+  font-family: "geist-semibold";
+  transition: selection 0.1s ease-in;
+}
+
+@font-face {
+  src: url(~/assets/fonts/Geist-Light.woff2);
+  font-family: "geist-light"
+}
+
+.geist-light {
+  letter-spacing: 0px;
+  font-family: "geist-light";
+  transition: selection 0.1s ease-in;
+}
