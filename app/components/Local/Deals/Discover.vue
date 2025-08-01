@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 
-const images = ref<Array|null>(null);
+const images = ref<Array>([]);
 
 const handleQlooService = (suggestions: any[]) => {
   for (let i=0; i < suggestions.length; i++) {
     images.value.push(suggestions.properties.images[0].url)
   }
+  console.log("Image values are")
   console.log(images.value)
 }
 
