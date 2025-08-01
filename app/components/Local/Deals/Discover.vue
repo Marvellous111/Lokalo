@@ -22,7 +22,7 @@ const handleQlooService = (suggestions: any[]) => {
           Explore the best stays, dinning and stores around you picked for the day.
         </span>
       </div>
-      <!-- <GeneralReusablesSearchDSearchBar @get-qloo-service="handleQlooService" /> -->
+      <GeneralReusablesSearchDSearchBar @get-qloo-service="handleQlooService" />
     </section>
     <section class="deals-display">
       <!-- <LocalDiscoverDisplay /> -->
