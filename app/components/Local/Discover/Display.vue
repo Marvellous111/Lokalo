@@ -2,7 +2,10 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps<{
-  images: string[]
+  images: {
+    required: true,
+    type: Array
+  }
 }>()
 
 const deal_size = ref(0)

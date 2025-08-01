@@ -3,8 +3,9 @@
 const images = ref<Array|null>(null);
 
 const handleQlooService = (suggestions: any[]) => {
-  images.value = suggestions
-    .flatMap(item => item.properties?.images?.map((img: { url: string }) => img.url) || [])
+  for (let i=0; i < suggestions.length; i++) {
+    images.value.push(suggestions.properties.images[0].url)
+  }
   console.log(images.value)
 }
 
