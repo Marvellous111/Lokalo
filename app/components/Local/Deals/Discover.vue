@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 
 const images = ref<Array>([]);
+const locStore = useLocStore();
+const errorStore = useErrorStore();
 
 const handleQlooService = (suggestions: any[]) => {
   for (let i=0; i < suggestions.length; i++) {
@@ -10,6 +12,14 @@ const handleQlooService = (suggestions: any[]) => {
   console.log(images.value)
 }
 
+
+onMount(async () =>{
+  const { hotels } = useQlooServices();
+  var sug = ref<Array|null>(null);
+  const location_data = { latitude: locStore.position.lat, longitude: locStore.position.lng };
+  sug.value = await hotels(location_data, locStore.city, 3)
+  handleQlooService(sug.value)
+})
 
 
 </script>
@@ -28,7 +38,7 @@ const handleQlooService = (suggestions: any[]) => {
       <GeneralReusablesSearchDSearchBar @get-qloo-service="handleQlooService" />
     </section>
     <section class="deals-display">
-      <!-- <LocalDiscoverDisplay /> -->
+      <LocalDiscoverDisplay />
     </section>
   </div>
 </template>
