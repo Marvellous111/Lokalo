@@ -18,15 +18,12 @@ const { restaurants, hotels, stores } = useQlooServices();
 const changeDisplayType = async (changed_search_type: string) => {
   selected_search_type.value = changed_search_type
   search_placeholder.value = `Search for ${changed_search_type} around you`
-  console.log("DSEARCH BAR INIT")
   var sug = ref<Array|null>(null);
   const location_data = { latitude: locStore.position.lat, longitude: locStore.position.lng };
   if (changed_search_type == 'Stays') {
     sug.value = await hotels(location_data, locStore.city, 3)
-    //emits('get_qloo_service', product=sug.value)
   }else if (changed_search_type == 'Dining') {
     sug.value = await restaurants(location_data, locStore.city, 3)
-    //emits('get_qloo_service', product=sug.value)
   }
   if (sug.value) {
     emits('get-qloo-service', sug.value)
@@ -181,6 +178,13 @@ const changeDisplayType = async (changed_search_type: string) => {
   .search-bar:focus {
     background: transparent;
     border: 1px solid #90ee90;
+  }
+}
+@include responsive(mobile) {
+  .dsearch-wrapper {
+    .search-bar {
+      display: none;
+    }
   }
 }
 </style>

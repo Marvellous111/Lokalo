@@ -42,7 +42,7 @@ export const useQlooServices = () => {
         method: 'POST',
         body: { location: location, city: city, take: take }
       })
-      console.log(insight.results.entities)
+
       return insight.results.entities
     } catch(error) {
       console.error(`An error occurred while getting the restaurants`)
@@ -59,7 +59,6 @@ export const useQlooServices = () => {
         method: 'POST',
         body: { location: location, city: city, take: take }
       })
-      console.log(insight.results.entities)
       return insight.results.entities
     } catch(error) {
       console.error(`An error occurred while getting the restaurants`)

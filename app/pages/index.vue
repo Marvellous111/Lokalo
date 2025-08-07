@@ -6,9 +6,6 @@ useSeoMeta({
   title: 'Lokalo | Stays, dinnings, shops and more for the best experience'
 })
 
-const is_mobile = false;
-
-
 
 // const errorToast = ref<HTMLElement|null>(null);
 
@@ -39,11 +36,11 @@ Each cannot exist at the same time?
         @error_function="changeError"
       />
     </section> -->
-    <section class="searchbar-mobile" v-if="is_mobile">
-      <GeneralReusablesSearchBar />
-    </section>
     <section class="discover-section">
       <LocalDealsDiscover />
+    </section>
+    <section class="searchbar-mobile">
+      <GeneralReusablesSearchBar />
     </section>
     <section class="deals-section">
       <LocalDealsWrapper />
@@ -59,14 +56,18 @@ Each cannot exist at the same time?
   flex-direction: column;
   position: relative;
   row-gap: 50px;
-  // @include responsive(mobile) {
-  //   min-height: 120px;
-  //   max-height:auto;
-  //   height:120px;
-  //   width: 93%;
-  // }
+  .searchbar-mobile {
+    display: none;
+  }
   .deals-section { 
     width: stretch;
+  }
+}
+@include responsive(mobile) {
+  .index-wrapper {
+    .searchbar-mobile {
+      display: block;
+    }
   }
 }
 </style>

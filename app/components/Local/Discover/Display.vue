@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
+
+const stateStore = useStateStore();
 
 const props = defineProps({
   images: {
@@ -8,13 +10,15 @@ const props = defineProps({
   }
 })
 
+
 const deal_size = ref(0)
 const currentIndex = ref(0)
-let timer: ReturnType<typeof setInterval> | null = null
+let timer: ReturnType<typeof setInterval> | null = null;
 
+const canRunCarouselFunction = computed(() => stateStore.carouselImagesReady.ready && !stateStore.carouselImagesReady.error)
 // Initialize deal_size based on images prop
 const initCarousel = () => {
-  deal_size.value = props.images.length
+  deal_size.value = props.images.length;
 }
 
 // Auto-advance to next image
@@ -22,11 +26,25 @@ const nextImage = () => {
   currentIndex.value = (currentIndex.value + 1) % deal_size.value
 }
 
+watch(
+  () => props.images,
+  () => {
+    initCarousel();
+  },
+  { immediate: true, deep: true }
+);
+
+watch(canRunCarouselFunction, (newValue) => {
+  if (newValue) {
+    initCarousel()
+    console.log("Changing image after 5000ms")
+    if (import.meta.client && !timer) {
+      timer = setInterval(nextImage, 5000)
+    }
+  }
+}, { immediate: true })
+
 // Start auto-rotation
-onMounted(() => {
-  initCarousel()
-  timer = setInterval(nextImage, 10000) // 10 seconds
-})
 
 // Cleanup timer on unmount
 onUnmounted(() => {
@@ -119,6 +137,14 @@ onUnmounted(() => {
         opacity: 1;
       }
     }
+  }
+}
+
+@include responsive(mobile) {
+  .discover-display {
+    width: 350px;
+    height: 375px;
+    border-radius: 25px;
   }
 }
 </style>

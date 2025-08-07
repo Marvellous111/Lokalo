@@ -1,31 +1,53 @@
 <script lang="ts" setup>
+import { computed, watch, ref } from 'vue';
 import { Filter } from 'lucide-vue-next';
+
 const select_types = ["Stays", "Dining"];
 const selected_category_type = ref("Stays");
+// Here the useState will be brought for the app to know whether to run or not.
+// So we will either watch or compute for the state layoutReady
+const stateStore = useStateStore();
+
+
+
+const canRunPageFunction = computed(() => stateStore.locationReady.ran && !stateStore.locationReady.error);
 
 const locStore = useLocStore();
 const errorStore = useErrorStore();
 
-const types_map = ref<Map<String|Array>>({
+console.log(errorStore.productErrorStatus)
+
+const types_map = ref<Map<String|Array>>({ // correct this later
   "Stays": [],
   "Dining": [],
   "Stores": []
 })
 
 const getRestaurantRec = async () => {
-  console.log("Getting recs for diners")
-  const { restaurants } = useQlooServices();
-  const location_data = { latitude: locStore.position.lat, longitude: locStore.position.lng };
-  const sug_res = await restaurants(location_data, locStore.city, 8)
-  types_map.value["Dining"] = sug_res
+  try {
+    const { restaurants } = useQlooServices();
+    const location_data = { latitude: locStore.position.lat, longitude: locStore.position.lng };
+    const sug_res = await restaurants(location_data, locStore.city, 8)
+    types_map.value["Dining"] = sug_res
+    errorStore.changeProductErrorStatus(null)
+  } catch(error) {
+    errorStore.changeProductErrorStatus("Cannot get product")
+    console.log(`An error occurred while getting diners`)
+  }
 }
 
 const getHotelsRec = async () => {
-  console.log("Getting recs for stays")
-  const { hotels } = useQlooServices();
-  const location_data = { latitude: locStore.position.lat, longitude: locStore.position.lng };
-  const sug_hot = await hotels(location_data, locStore.city, 8)
-  types_map.value["Stays"] = sug_hot
+  try {
+    const { hotels } = useQlooServices();
+    const location_data = { latitude: locStore.position.lat, longitude: locStore.position.lng };
+    const sug_hot = await hotels(location_data, locStore.city, 8)
+    types_map.value["Stays"] = sug_hot
+    errorStore.changeProductErrorStatus(null)
+  } catch(error) {
+    console.log("Changing product error status to true")
+    errorStore.changeProductErrorStatus("Cannot get product")
+    console.log(`An error occurred while getting stays`)
+  }
 }
 
 // const getStoresRec = async () => {
@@ -36,28 +58,25 @@ const getHotelsRec = async () => {
 //   types_map.value["Stores"] = sug_str
 // }
 
-onMounted(async () => {
+const getTotalRec = async () => {
   try {
-    await getRestaurantRec()
-    await getHotelsRec()
-    // await getStoresRec()
+    await getRestaurantRec();
+    await getHotelsRec();
   } catch(error) {
-    console.error(`An error occurred for recommending diners: ${error}`)
+    console.log(`An error occurred: ${error}`)
   }
-})
-
-/*
-How do we want to play this right now:
-We can say:
-{
-  "Stays": [],
-  "Dinning": [],
-  "Stores": []
 }
-*/
 
 
-
+watch(canRunPageFunction, async (newValue) => {
+  if (newValue) {
+    try{
+      await getTotalRec()
+    } catch(error) {
+      console.log(`An error occurred while watching: ${error}`)
+    }
+  }
+}, { immediate: true })
 
 
 </script>

@@ -1,10 +1,13 @@
 <script lang="ts" setup>
 import { Globe, ChevronDown, ShoppingBag, MapPinned } from 'lucide-vue-next';
+import { computed, ref, watch } from 'vue';
 
 //var toast_type = ref<string|null>(null)
 const toastWrapper = ref<HTMLElement|null>(null);
 const locStore = useLocStore();
 const errorStore = useErrorStore();
+
+const stateStore = useStateStore();
 
 const openToast = () => {
   if (!toastWrapper.value) return
@@ -32,17 +35,27 @@ const getUserLocation = async () => {
     // Set logging here to check on server side if it is from the native browser or the api
   }catch(error) {
     console.error(`An error occured while getting and saving pos: ${error}`);
-  }
-  if (userLoc.value == null) {
-    errorStore.changeToastType('error')
+    stateStore.changeLocationReady(true, true);
+    // Cant the error just open toast here??
+    errorStore.changeToastType('error');
     if (errorStore.positionErrorStatus == false) {
-      errorStore.changePositionErrorStatus("Could not get your location");
+      errorStore.changePositionErrorStatus('Could not get your location');
       openToast()
-    }else {
+    } else {
       openToast()
     }
     return
   }
+  // if (userLoc.value == null) {
+  //   errorStore.changeToastType('error')
+  //   if (errorStore.positionErrorStatus == false) {
+  //     errorStore.changePositionErrorStatus("Could not get your location");
+  //     openToast()
+  //   }else {
+  //     openToast()
+  //   }
+  //   return
+  // }
   errorStore.changeToastType(null)
   closeToast() // I dont know why this is necessary tbh
   if (errorStore.positionErrorStatus == true) {
@@ -59,7 +72,9 @@ const getUserLocation = async () => {
       closeToast()
     }
     console.info("Saved position");
+    stateStore.changeLocationReady(true, false);
   } catch(error) {
+    stateStore.changeLocationReady(true, true);
     errorStore.changeToastType('error');
     errorStore.changePositionErrorStatus("Could not get your location");
     openToast()
@@ -105,6 +120,16 @@ onBeforeMount(async () => {
     console.log(error)
   }
 })
+
+const error_status = computed(() => errorStore.toastType == "error")
+
+watch(error_status, (newValue) => {
+  if (newValue) {
+    openToast()
+  } else {
+    closeToast()
+  }
+}, { immediate: true })
 
 </script>
 
@@ -322,6 +347,30 @@ onBeforeMount(async () => {
     height: stretch;
     padding: 20px 70px;
     padding-bottom: 100px;
+  }
+}
+@include responsive(mobile) {
+  .main-wrapper {
+    width: stretch;
+    nav {
+      width: stretch;
+      height: 50px;
+      padding: 0px 10px;
+      .lf-wrapper {
+        column-gap: 20px;
+        .company-logo-text {
+          display: none;
+        }
+      }
+    }
+    .body {
+      // border: 1px solid black;
+      padding: 10px 10px;
+      padding-bottom: 40px;
+    }
+    .toast-wrapper {
+      left: 0;
+    }
   }
 }
 </style>
