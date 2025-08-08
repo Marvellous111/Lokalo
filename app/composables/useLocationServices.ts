@@ -1,7 +1,6 @@
 export const useLocationServices = () => {
   const reverseGeocode = async (coords: { lat: number; lng: number }) => {
     try {
-      console.info('Getting location via geocode-client from server')
       const res = await $fetch("/api/location/getLocationData", {
         method: 'POST',
         body: { latitude: coords.lat, longitude: coords.lng }

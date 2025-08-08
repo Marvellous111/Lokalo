@@ -98,6 +98,10 @@ const signup_subtitle = ref("");
       cursor: pointer;
       top: 2.5px;
       right: 2.5px;
+      color: #121212;
+      .close-icon {
+        color: #121212;
+      }
     }
     .image-wrapper {
       height: 75px;

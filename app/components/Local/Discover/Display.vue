@@ -37,7 +37,6 @@ watch(
 watch(canRunCarouselFunction, (newValue) => {
   if (newValue) {
     initCarousel()
-    console.log("Changing image after 5000ms")
     if (import.meta.client && !timer) {
       timer = setInterval(nextImage, 5000)
     }

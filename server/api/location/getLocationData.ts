@@ -6,7 +6,6 @@ export default defineEventHandler(async(event) => {
   const server_api = config.server
 
   try {
-    console.log("Getting user location from server") // In retrospect we could offload this to client
     const res = await $fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client`, {
       params: { latitude: body.latitude, longitude: body.longitude }
     })

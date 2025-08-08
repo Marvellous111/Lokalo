@@ -1,12 +1,11 @@
 // import { defineEventHandler } from 'h3';
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event) // This may be what we use to pass in the get request right?
+  const body = await readBody(event)
   const config = useRuntimeConfig();
   const server_keys = config.server
 
   try {
-    // We can use useFetch instead of $fetch?? or just fetch will work since it is for server side and we dont want hydreation mismatch error
     // &filter.location=POINT%28${body.location.longitude}%20${body.location.latitude}%29
     // &operator.filter.tags=union
     // restaurant
@@ -19,6 +18,8 @@ export default defineEventHandler(async (event) => {
     }else {
       formatted_city = body.city
     }
+    console.log(`Body with formatted city: ${formatted_city}`)
+    console.log(body)
     const qloo_insight = await $fetch(`https://hackathon.api.qloo.com/v2/insights?filter.type=urn:entity:place&filter.exists=properties.hours&filter.location=POINT%28${body.location.longitude}%20${body.location.latitude}%29&filter.location.query=${formatted_city}&filter.tags=urn:tag:dining_options:place:dinner,urn:tag:category:place:restaurant,urn:tag:genre:place:restaurant&operator.filter.tags=intersection&take=${body.take}`,
       {
         method: 'GET',
@@ -36,8 +37,3 @@ export default defineEventHandler(async (event) => {
   }
 
 })
-
-/*
-Now here we want to get insights for the user using qloo right?
-Qloo will have multiple endpoints for the user
- */

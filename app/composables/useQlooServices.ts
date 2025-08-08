@@ -18,17 +18,15 @@ export const useQlooServices = () => {
     city: string,
     take: number
   ) => {
-    console.log(location)
-    console.log(city)
     try {
       const insight = await $fetch(`/api/qloo/dining`, {
-        method: 'POST',
+        method: 'POST', // test without this
         body: { location: location, city: city, take: take }
       })
 
       return insight.results.entities
     } catch(error) {
-      console.error(`An error occurred while getting the restaurants`)
+      console.error(`COMPOSABLE - DINERS: An error occurred while getting the DINERS`)
     }
   }
 
@@ -39,31 +37,31 @@ export const useQlooServices = () => {
   ) => {
     try {
       const insight = await $fetch(`/api/qloo/hotels`, {
-        method: 'POST',
+        method: 'POST', // test without this
         body: { location: location, city: city, take: take }
       })
 
       return insight.results.entities
     } catch(error) {
-      console.error(`An error occurred while getting the restaurants`)
+      console.error(`COMPOSABLES - HOTELS: An error occurred while getting the STAYS`)
     }
   }
 
-  const stores = async (
-    location: { latitude: number, longitude: number },
-    city: string,
-    take: number
-  ) => {
-    try {
-      const insight = await $fetch(`/api/qloo/stores`, {
-        method: 'POST',
-        body: { location: location, city: city, take: take }
-      })
-      return insight.results.entities
-    } catch(error) {
-      console.error(`An error occurred while getting the restaurants`)
-    }
-  }
+  // const stores = async (
+  //   location: { latitude: number, longitude: number },
+  //   city: string,
+  //   take: number
+  // ) => {
+  //   try {
+  //     const insight = await $fetch(`/api/qloo/stores`, {
+  //       method: 'POST', // Test this well and ensure it works with get instead and remove post or remove both
+  //       body: { location: location, city: city, take: take }
+  //     })
+  //     return insight.results.entities
+  //   } catch(error) {
+  //     console.error(`An error occurred while getting the restaurants`)
+  //   }
+  // }
 
 
   return { restaurants, hotels, stores }
