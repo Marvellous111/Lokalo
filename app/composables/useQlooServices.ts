@@ -47,21 +47,21 @@ export const useQlooServices = () => {
     }
   }
 
-  // const stores = async (
-  //   location: { latitude: number, longitude: number },
-  //   city: string,
-  //   take: number
-  // ) => {
-  //   try {
-  //     const insight = await $fetch(`/api/qloo/stores`, {
-  //       method: 'POST', // Test this well and ensure it works with get instead and remove post or remove both
-  //       body: { location: location, city: city, take: take }
-  //     })
-  //     return insight.results.entities
-  //   } catch(error) {
-  //     console.error(`An error occurred while getting the restaurants`)
-  //   }
-  // }
+  const stores = async (
+    location: { latitude: number, longitude: number },
+    city: string,
+    take: number
+  ) => {
+    try {
+      const insight = await $fetch(`/api/qloo/stores`, {
+        method: 'POST', // Test this well and ensure it works with get instead and remove post or remove both
+        body: { location: location, city: city, take: take }
+      })
+      return insight.results.entities
+    } catch(error) {
+      console.error(`An error occurred while getting the restaurants`)
+    }
+  }
 
 
   return { restaurants, hotels, stores }
