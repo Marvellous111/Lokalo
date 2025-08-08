@@ -19,6 +19,7 @@ export default defineEventHandler(async(event) => {
       countryName: res.countryName,
       language: res.localityLanguageRequested 
     }
+    console.log(res_details)
     return res_details
 
   }catch(error) {

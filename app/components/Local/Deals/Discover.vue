@@ -28,7 +28,7 @@ watch(canRunPageFunction, async (value) => {
       const { hotels } = useQlooServices();
       var sug = ref<Array|null>(null);
       const location_data = { latitude: locStore.position.lat, longitude: locStore.position.lng }
-      sug.value = await hotels(location_data, locStore.city, 3)
+      sug.value = await hotels(location_data, locStore.subdivision, 3)
       handleQlooService(sug.value)
       stateStore.changeCarouselImagesReady(true, false)
     } catch(error) {

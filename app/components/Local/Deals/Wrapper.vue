@@ -27,7 +27,7 @@ const getRestaurantRec = async () => {
   try {
     const { restaurants } = useQlooServices();
     const location_data = { latitude: locStore.position.lat, longitude: locStore.position.lng };
-    const sug_res = await restaurants(location_data, locStore.city, 8)
+    const sug_res = await restaurants(location_data, locStore.subdivision, 8)
     types_map.value["Dining"] = sug_res
     errorStore.changeProductErrorStatus(null)
   } catch(error) {
@@ -40,7 +40,7 @@ const getHotelsRec = async () => {
   try {
     const { hotels } = useQlooServices();
     const location_data = { latitude: locStore.position.lat, longitude: locStore.position.lng };
-    const sug_hot = await hotels(location_data, locStore.city, 8)
+    const sug_hot = await hotels(location_data, locStore.subdivision, 8)
     types_map.value["Stays"] = sug_hot
     errorStore.changeProductErrorStatus(null)
   } catch(error) {
