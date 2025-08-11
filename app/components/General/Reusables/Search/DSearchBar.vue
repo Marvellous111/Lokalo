@@ -3,11 +3,11 @@ import { BedSingle, Utensils, Store, Search } from 'lucide-vue-next';
 
 const locStore = useLocStore();
 const errorStore = useErrorStore();
+const stateStore = useStateStore();
 
-// const emits = defineEmits<{
-//   (e: 'get_qloo_service', product: Array): void // Perhpas i can remove the name and just emit the product, check it later
-// }>()
-
+const emits = defineEmits<{
+  (e: 'get-qloo-service', suggestions: any[]): void
+}>()
 // Removing stores feature for now.
 
 const search_type = ["Stays", "Dining"];
@@ -17,18 +17,21 @@ const search_placeholder = ref("Search for stays around you");
 const { restaurants, hotels, stores } = useQlooServices();
 
 const changeDisplayType = async (changed_search_type: string) => {
+  stateStore.changeDisplayLoadState(true)
   selected_search_type.value = changed_search_type
   search_placeholder.value = `Search for ${changed_search_type} around you`
   var sug = ref<Array|null>(null);
   const location_data = { latitude: locStore.position.lat, longitude: locStore.position.lng };
   if (changed_search_type == 'Stays') {
-    sug.value = await hotels(location_data, locStore.city, 3)
-    //emits('get_qloo_service', product=sug.value)
+    sug.value = await hotels(location_data, locStore.subdivision, 3)
   }else if (changed_search_type == 'Dining') {
-    sug.value = await restaurants(location_data, locStore.city, 3)
-    //emits('get_qloo_service', product=sug.value)
+    sug.value = await restaurants(location_data, locStore.subdivision, 3)
   }
-  console.log(sug.value)
+  if (sug.value) {
+    emits('get-qloo-service', sug.value)
+    console.log(sug.value)
+  }
+  stateStore.changeDisplayLoadState(false)
 }
 
 </script>
@@ -178,6 +181,13 @@ const changeDisplayType = async (changed_search_type: string) => {
   .search-bar:focus {
     background: transparent;
     border: 1px solid #90ee90;
+  }
+}
+@include responsive(mobile) {
+  .dsearch-wrapper {
+    .search-bar {
+      display: none;
+    }
   }
 }
 </style>

@@ -95,6 +95,10 @@ const signin_subtitle = ref("");
       cursor: pointer;
       top: 2.5px;
       right: 2.5px;
+      color: #121212;
+      .close-icon {
+        color: #121212;
+      }
     }
     .image-wrapper {
       height: 75px;
@@ -163,6 +167,9 @@ const signin_subtitle = ref("");
       outline: 0;
       background: #90ee90;
       font-size: 15px;
+      span {
+        color: #121212;
+      }
     }
   }
   .sign-in {
@@ -197,6 +204,7 @@ const signin_subtitle = ref("");
       text-decoration: underline;
       background: transparent;
       cursor: pointer;
+      color: #121212;
     }
   }
   .better-auth-wrapper {

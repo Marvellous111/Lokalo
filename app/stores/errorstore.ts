@@ -17,7 +17,11 @@ export const useErrorStore = defineStore(
     const positionErrorMessage = ref<string|null>(null);
 
     function changePositionErrorStatus(error_message: string|null) {
-      positionErrorStatus.value = !positionErrorStatus.value;
+      if (error_message == null) {
+        positionErrorStatus.value = false
+      }else {
+        positionErrorStatus.value = true;
+      }
       positionErrorMessage.value = error_message;
     }
 
@@ -25,13 +29,25 @@ export const useErrorStore = defineStore(
       toastType.value = new_type
     }
 
-    return { toastType, positionErrorStatus, positionErrorMessage, changePositionErrorStatus, changeToastType } 
+    const productErrorMessage = ref<String|null>(null);
+    const productErrorStatus = ref<boolean>(true);
+
+    function changeProductErrorStatus(error_message: string|null) {
+      if (error_message == null) {
+        productErrorStatus.value = false
+      } else {
+        productErrorStatus.value = true
+      }
+      productErrorMessage.value = error_message
+    }
+
+    return { toastType, positionErrorStatus, positionErrorMessage, changePositionErrorStatus, changeToastType, productErrorMessage, productErrorStatus, changeProductErrorStatus } 
     // Is there a better way for this, like returning a const will return all of them? I think so
 
   },
-  {
-    persist: {
-      storage: piniaPluginPersistedstate.cookies(),
-    }
-  }
+  // {
+  //   persist: {
+  //     storage: piniaPluginPersistedstate.cookies(),
+  //   }
+  // }
 )

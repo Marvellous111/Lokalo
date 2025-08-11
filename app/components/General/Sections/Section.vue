@@ -1,5 +1,10 @@
 <script lang="ts" setup>
 import { ChevronRight } from 'lucide-vue-next';
+import { computed } from 'vue';
+
+const errorStore = useErrorStore();
+const stateStore = useStateStore();
+
 const props = defineProps({
   header: {
     required: true,
@@ -22,6 +27,11 @@ const props = defineProps({
   :link="product['link']"
   :redirect="product['redirect']"
 */
+
+const checkWrapper = computed(() => !errorStore.productErrorStatus);
+const checkLoadState = computed(() => stateStore.productLoad);
+
+
 </script>
 
 <template>
@@ -36,14 +46,23 @@ const props = defineProps({
         />
       </div>
     </NuxtLink>
-    <div class="product-wrapper">
+    <div class="product-wrapper" v-if="checkWrapper == true" >
       <GeneralReusablesProductCard
+        v-if="checkLoadState == false"
         v-for="product in props.products"
         :key="product"
         :title="product.name"
         :image="product.properties.images[0].url"
         price="$209"
       />
+      <GeneralReusablesLoadersSkeletonProductCard 
+        v-if="checkLoadState == true"
+        v-for="num in 6"
+        :key="num"
+      />
+    </div>
+    <div class="product-wrapper-error" v-if="checkWrapper == false">
+      <span class="geist-medium">An error occured while fetching products</span>
     </div>
   </div>
 </template>
@@ -89,6 +108,14 @@ const props = defineProps({
     overflow-x: scroll;
     scrollbar-width: none;
     //border: 1px solid black;
+  }
+  .product-wrapper-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: stretch;
+    height: 100px;
+    // border: 1px solid black;
   }
 }
 </style>

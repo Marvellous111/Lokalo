@@ -32,6 +32,7 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 
 
 TODOs:
+
 -[x] Implement search frontend for deal of day
 -[x] Implement deal of day carousel
 -[x] Implement Product card into the deals

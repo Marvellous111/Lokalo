@@ -7,7 +7,6 @@ useSeoMeta({
 })
 
 
-
 // const errorToast = ref<HTMLElement|null>(null);
 
 // I just realised location data fetching could be a middleware thing that is tied to the store? 
@@ -37,11 +36,11 @@ Each cannot exist at the same time?
         @error_function="changeError"
       />
     </section> -->
-    <section class="searchbar-mobile">
-      <GeneralReusablesSearchBar />
-    </section>
     <section class="discover-section">
       <LocalDealsDiscover />
+    </section>
+    <section class="searchbar-mobile">
+      <GeneralReusablesSearchBar />
     </section>
     <section class="deals-section">
       <LocalDealsWrapper />
@@ -57,19 +56,18 @@ Each cannot exist at the same time?
   flex-direction: column;
   position: relative;
   row-gap: 50px;
-  // .error-toast {
-  //   z-index: 30;
-  //   position: fixed;
-  //   top: 0;
-  //   left: -20px;
-  //   width: stretch;
-  //   height: stretch;
-  //   visibility: hidden;
-  //   opacity: 0;
-  //   transition: visibility 0.3s ease-in, opacity 0.3s ease-in;
-  // }
+  .searchbar-mobile {
+    display: none;
+  }
   .deals-section { 
     width: stretch;
+  }
+}
+@include responsive(mobile) {
+  .index-wrapper {
+    .searchbar-mobile {
+      display: block;
+    }
   }
 }
 </style>

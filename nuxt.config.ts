@@ -15,6 +15,16 @@ export default defineNuxtConfig({
   css: [
     '~/assets/styles/main.css',
   ],
+  
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use "@/assets/styles/media" as *;`,
+        }
+      }
+    }
+  },
 
   modules: ['@nuxt/image', '@pinia/nuxt', 'pinia-plugin-persistedstate']
 })

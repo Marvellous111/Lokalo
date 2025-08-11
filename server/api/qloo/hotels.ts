@@ -12,12 +12,19 @@ export default defineEventHandler(async (event) => {
       formatted_city = body.city
     }
 
+    console.log(`Body with formatted city: ${formatted_city}`)
+    console.log(body)
+
     // &filter.exists=properties.hours
     // urn:tag:genre:place:hotel:lodging
     // https://hackathon.api.qloo.com/v2/tags/types?filter.parents.types=urn:entity:place&take=30
     // https://hackathon.api.qloo.com/v2/insights?filter.type=urn:entity:place&filter.location=POINT%28${body.location.longitude}%20${body.location.latitude}%29&filter.location.query=${formatted_city}&filter.tags=urn:tag:category:place:hotels&take=8
+    // https://hackathon.api.qloo.com/v2/insights?filter.type=urn:entity:place&filter.exists=properties.price_range&filter.location=POINT%287.075380611826033%204.862836456254726%29&filter.location.query=Rumuodomaya&filter.tags=urn:tag:category:place:hotel,urn:tag:genre:place:hotel&operator.filter.tags=intersection&take=3
 
-    const hotels = await $fetch(`https://hackathon.api.qloo.com/v2/insights?filter.type=urn:entity:place&&filter.exists=properties.price_range&filter.location=POINT%28${body.location.longitude}%20${body.location.latitude}%29&filter.location.query=${formatted_city}&filter.tags=urn:tag:category:place:hotel,urn:tag:genre:place:hotel&operator.filter.tags=intersection&take=${body.take}`, {
+    // Issue here is that some cities are not available. meaning we will have to take state wide
+    //https://hackathon.api.qloo.com/v2/insights?filter.type=urn:entity:place&filter.exists=properties.price_range&filter.location=POINT%28${body.location.longitude}%20${body.location.latitude}%29&filter.location.query=${formatted_city}&filter.tags=urn:tag:category:place:hotel,urn:tag:genre:place:hotel&operator.filter.tags=intersection&take=${body.take}
+
+    const hotels = await $fetch(`https://hackathon.api.qloo.com/v2/insights?filter.type=urn:entity:place&filter.exists=properties.price_range&filter.location=POINT%28${body.location.longitude}%20${body.location.latitude}%29&filter.location.query=${formatted_city}&filter.tags=urn:tag:category:place:hotel,urn:tag:genre:place:hotel&operator.filter.tags=intersection&take=${body.take}`, {
       method: 'GET',
       headers: {
         accept: 'application/json',
