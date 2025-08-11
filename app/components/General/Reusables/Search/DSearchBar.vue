@@ -112,10 +112,12 @@ const changeDisplayType = async (changed_search_type: string) => {
         display: flex;
         align-items: center;
         justify-content: center;
+        color: #121212;
       }
       span {
         font-size: 14px;
         letter-spacing: -0.3px;
+        color: #121212;
       }
     }
     .notselected {
