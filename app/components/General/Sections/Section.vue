@@ -3,6 +3,7 @@ import { ChevronRight } from 'lucide-vue-next';
 import { computed } from 'vue';
 
 const errorStore = useErrorStore();
+const stateStore = useStateStore();
 
 const props = defineProps({
   header: {
@@ -28,6 +29,8 @@ const props = defineProps({
 */
 
 const checkWrapper = computed(() => !errorStore.productErrorStatus);
+const checkLoadState = computed(() => stateStore.productLoad);
+
 
 </script>
 
@@ -45,11 +48,17 @@ const checkWrapper = computed(() => !errorStore.productErrorStatus);
     </NuxtLink>
     <div class="product-wrapper" v-if="checkWrapper == true" >
       <GeneralReusablesProductCard
+        v-if="checkLoadState == false"
         v-for="product in props.products"
         :key="product"
         :title="product.name"
         :image="product.properties.images[0].url"
         price="$209"
+      />
+      <GeneralReusablesLoadersSkeletonProductCard 
+        v-if="checkLoadState == true"
+        v-for="num in 6"
+        :key="num"
       />
     </div>
     <div class="product-wrapper-error" v-if="checkWrapper == false">

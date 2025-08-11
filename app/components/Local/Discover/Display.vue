@@ -142,6 +142,7 @@ onUnmounted(() => {
 @include responsive(mobile) {
   .discover-display {
     width: 350px;
+    max-width: 400px;
     height: 375px;
     border-radius: 25px;
   }

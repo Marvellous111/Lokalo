@@ -25,11 +25,11 @@ const types_map = ref<Map<String|Array>>({ // correct this later
 
 const getRestaurantRec = async () => {
   try {
+    errorStore.changeProductErrorStatus(null)
     const { restaurants } = useQlooServices();
     const location_data = { latitude: locStore.position.lat, longitude: locStore.position.lng };
     const sug_res = await restaurants(location_data, locStore.subdivision, 8)
     types_map.value["Dining"] = sug_res
-    errorStore.changeProductErrorStatus(null)
   } catch(error) {
     errorStore.changeProductErrorStatus("Cannot get product")
     console.log(`An error occurred while getting diners`)
@@ -38,11 +38,11 @@ const getRestaurantRec = async () => {
 
 const getHotelsRec = async () => {
   try {
+    errorStore.changeProductErrorStatus(null)
     const { hotels } = useQlooServices();
     const location_data = { latitude: locStore.position.lat, longitude: locStore.position.lng };
     const sug_hot = await hotels(location_data, locStore.subdivision, 8)
     types_map.value["Stays"] = sug_hot
-    errorStore.changeProductErrorStatus(null)
   } catch(error) {
     console.log("Changing product error status to true")
     errorStore.changeProductErrorStatus("Cannot get product")
@@ -60,9 +60,12 @@ const getHotelsRec = async () => {
 
 const getTotalRec = async () => {
   try {
+    stateStore.changeProductLoadState(true)
     await getRestaurantRec();
     await getHotelsRec();
+    stateStore.changeProductLoadState(false)
   } catch(error) {
+    stateStore.changeProductLoadState(false)
     console.log(`An error occurred: ${error}`)
   }
 }

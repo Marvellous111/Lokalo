@@ -35,8 +35,19 @@ export const useStateStore = defineStore(
       }
     }
 
+    const productLoad = ref<boolean>(false);
+    function changeProductLoadState(args: boolean) {
+      productLoad.value = args
+    }
+
+    const displayLoad = ref<boolean>(false);
+    function changeDisplayLoadState(args: boolean) {
+      displayLoad.value = args
+    }
+
     return {
-      locationReady, changeLocationReady, carouselImagesReady, changeCarouselImagesReady
+      locationReady, changeLocationReady, carouselImagesReady, changeCarouselImagesReady,
+      productLoad, changeProductLoadState, displayLoad, changeDisplayLoadState
     }
   },
   {

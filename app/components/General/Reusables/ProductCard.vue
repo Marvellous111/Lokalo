@@ -49,6 +49,7 @@ const props = defineProps({
   row-gap: 5px;
   position: relative;
   width: 175px;
+  border-radius: 15px 15px 0px 0px;
   .image-wrapper {
     border-radius: 15px;
     width: 175px;

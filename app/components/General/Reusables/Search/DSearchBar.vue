@@ -3,6 +3,7 @@ import { BedSingle, Utensils, Store, Search } from 'lucide-vue-next';
 
 const locStore = useLocStore();
 const errorStore = useErrorStore();
+const stateStore = useStateStore();
 
 const emits = defineEmits<{
   (e: 'get-qloo-service', suggestions: any[]): void
@@ -16,19 +17,21 @@ const search_placeholder = ref("Search for stays around you");
 const { restaurants, hotels, stores } = useQlooServices();
 
 const changeDisplayType = async (changed_search_type: string) => {
+  stateStore.changeDisplayLoadState(true)
   selected_search_type.value = changed_search_type
   search_placeholder.value = `Search for ${changed_search_type} around you`
   var sug = ref<Array|null>(null);
   const location_data = { latitude: locStore.position.lat, longitude: locStore.position.lng };
   if (changed_search_type == 'Stays') {
-    sug.value = await hotels(location_data, locStore.city, 3)
+    sug.value = await hotels(location_data, locStore.subdivision, 3)
   }else if (changed_search_type == 'Dining') {
-    sug.value = await restaurants(location_data, locStore.city, 3)
+    sug.value = await restaurants(location_data, locStore.subdivision, 3)
   }
   if (sug.value) {
     emits('get-qloo-service', sug.value)
     console.log(sug.value)
   }
+  stateStore.changeDisplayLoadState(false)
 }
 
 </script>

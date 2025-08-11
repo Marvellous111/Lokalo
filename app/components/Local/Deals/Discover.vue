@@ -13,7 +13,7 @@ const canRunPageFunction = computed(() => stateStore.locationReady.ran && !state
 const handleQlooService = (suggestions: any[]) => {
   stateStore.changeCarouselImagesReady(true, true)
   if (images.value.length > 1) {
-    images.value.length = 0; // There should be a way to flush value of arrays, check online!!!
+    images.value.length = 0;
   }
   for (let i=0; i < suggestions.length; i++) {
     images.value.push(suggestions[i].properties.images[0].url)
@@ -25,19 +25,24 @@ const handleQlooService = (suggestions: any[]) => {
 watch(canRunPageFunction, async (value) => {
   if (value) {
     try {
+      stateStore.changeDisplayLoadState(true)
       const { hotels } = useQlooServices();
       var sug = ref<Array|null>(null);
       const location_data = { latitude: locStore.position.lat, longitude: locStore.position.lng }
       sug.value = await hotels(location_data, locStore.subdivision, 3)
       handleQlooService(sug.value)
       stateStore.changeCarouselImagesReady(true, false)
+      stateStore.changeDisplayLoadState(false)
     } catch(error) {
+      stateStore.changeDisplayLoadState(false)
       stateStore.changeCarouselImagesReady(true, true)
       console.log(`An error occured, please try again later: ${error}`)
     }
   }
 }, { immediate: true })
 
+
+const checkDisplayLoad = computed(() => stateStore.displayLoad);
 
 </script>
 
@@ -46,7 +51,7 @@ watch(canRunPageFunction, async (value) => {
     <section class="discover-left-wrapper">
       <div class="texts-wrapper">
         <span class="discover-text geist-medium">
-          Discover the Best Deals Today
+          Discover the best deals near you
         </span>
         <span class="discover-sub-text geist-regular">
           Explore the best stays, dinning and stores around you picked for the day.
@@ -55,7 +60,13 @@ watch(canRunPageFunction, async (value) => {
       <GeneralReusablesSearchDSearchBar @get-qloo-service="handleQlooService" />
     </section>
     <section class="deals-display">
-      <LocalDiscoverDisplay :images="images" />
+      <LocalDiscoverDisplay
+        v-if="checkDisplayLoad == false"
+        :images="images"
+      />
+      <GeneralReusablesLoadersSkeletonDisplay 
+        v-if="checkDisplayLoad == true"
+      />
     </section>
   </div>
 </template>
@@ -78,6 +89,7 @@ watch(canRunPageFunction, async (value) => {
       flex-direction: column;
       row-gap: 20px;
       .discover-text {
+        width: 340px;
         font-size: 52px;
         line-height: 58px;
         letter-spacing: -2px;
