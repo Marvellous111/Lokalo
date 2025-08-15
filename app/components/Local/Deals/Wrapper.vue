@@ -31,7 +31,7 @@ const getRestaurantRec = async () => {
     const sug_res = await restaurants(location_data, locStore.subdivision, 8)
     types_map.value["Dining"] = sug_res
   } catch(error) {
-    errorStore.changeProductErrorStatus("Cannot get product")
+    errorStore.changeProductErrorStatus("Cannot get deals")
     console.log(`An error occurred while getting diners`)
   }
 }
@@ -114,6 +114,7 @@ watch(canRunPageFunction, async (newValue) => {
         :key="type"
         :header="`Best ${type} near you`"
         :products="types_map[type]"
+        :sectionLink="`${type.toLowerCase()}`"
       />
     </section>
   </section>

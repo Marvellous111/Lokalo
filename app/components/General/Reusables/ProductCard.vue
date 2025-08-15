@@ -16,19 +16,18 @@ const props = defineProps({
     //required: true,
     type: String
   },
-  redirect: {
-    //required: true,
-    type: String
+  details: {
+    type: Array
+  },
+  size: {
+    type: String,
+    default: 'small'
   }
 })
-
-// The link in props does not mean the link to the website,
-// it means our link to which we display more information and then link to the website
-
 </script>
 
 <template>
-  <NuxtLink to="/" class="product-card-wrapper">
+  <NuxtLink to="/" class="product-card-wrapper" :class="props.size">
     <div class="image-wrapper">
       <img class="product-image" :src="props.image" />
     </div>
@@ -48,49 +47,110 @@ const props = defineProps({
   flex-direction: column;
   row-gap: 5px;
   position: relative;
-  width: 175px;
   border-radius: 15px 15px 0px 0px;
-  .image-wrapper {
-    border-radius: 15px;
+  animation: fadeInScale 0.4s ease-out forwards;
+  &.small {
     width: 175px;
-    height: 175px;
-    //border: 1px solid black;
-    box-shadow: 0.4px 0.2px 6px 1px rgba(18, 18, 18, 0.1);
-    overflow: hidden;
-    .product-image {
-      object-fit: cover;
-      object-position: center 40%;
-      height: 100%;
-      width: 100%;
+
+    .image-wrapper {
+      border-radius: 15px;
+      width: 175px;
+      height: 175px;
+      //border: 1px solid black;
+      box-shadow: 0.4px 0.2px 6px 1px rgba(18, 18, 18, 0.1);
+      overflow: hidden;
+      .product-image {
+        object-fit: cover;
+        object-position: center 40%;
+        height: 100%;
+        width: 100%;
+      }
+    }
+    .title {
+      width: stretch;
+      text-align: left;
+      //display: flex;
+      align-items: center;
+      height: fit-content;
+      display: -webkit-box; /* Enables the flexbox-based layout */
+      -webkit-line-clamp: 1; /* Limits text to 1 lines */
+      -webkit-box-orient: vertical; /* Specifies vertical orientation */
+      overflow: hidden; 
+      span {
+        letter-spacing: -0.4px;
+        color: #121212;
+        font-size: 15px;
+      }
+    }
+    .price-rating {
+      display: flex;
+      width: stretch;
+      text-align: left;
+      align-items: center;
+      height: fit-content;
+      span {
+        font-size: 12px;
+        color: rgba(18, 18, 18, 0.7);
+        //color: #121212;
+      }
     }
   }
-  .title {
-    width: stretch;
-    text-align: left;
-    //display: flex;
-    align-items: center;
-    height: fit-content;
-    display: -webkit-box; /* Enables the flexbox-based layout */
-    -webkit-line-clamp: 1; /* Limits text to 1 lines */
-    -webkit-box-orient: vertical; /* Specifies vertical orientation */
-    overflow: hidden; 
-    span {
-      letter-spacing: -0.4px;
-      color: #121212;
-      font-size: 15px;
+  &.large {
+    width: 200px;
+    
+    .image-wrapper {
+      border-radius: 15px;
+      width: 200px;
+      height: 200px;
+      //border: 1px solid black;
+      box-shadow: 0.4px 0.2px 6px 1px rgba(18, 18, 18, 0.1);
+      overflow: hidden;
+      .product-image {
+        object-fit: cover;
+        object-position: center 40%;
+        height: 100%;
+        width: 100%;
+      }
+    }
+    .title {
+      width: stretch;
+      text-align: left;
+      //display: flex;
+      align-items: center;
+      height: fit-content;
+      display: -webkit-box; /* Enables the flexbox-based layout */
+      -webkit-line-clamp: 1; /* Limits text to 1 lines */
+      -webkit-box-orient: vertical; /* Specifies vertical orientation */
+      overflow: hidden; 
+      span {
+        letter-spacing: -0.4px;
+        color: #121212;
+        font-size: 15px;
+      }
+    }
+    .price-rating {
+      display: flex;
+      width: stretch;
+      text-align: left;
+      align-items: center;
+      height: fit-content;
+      span {
+        font-size: 12px;
+        color: rgba(18, 18, 18, 0.7);
+        //color: #121212;
+      }
     }
   }
-  .price-rating {
-    display: flex;
-    width: stretch;
-    text-align: left;
-    align-items: center;
-    height: fit-content;
-    span {
-      font-size: 12px;
-      color: rgba(18, 18, 18, 0.7);
-      //color: #121212;
-    }
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1); // Settle at original size
   }
 }
 </style>

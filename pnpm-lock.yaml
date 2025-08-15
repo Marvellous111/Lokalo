@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@databuddy/sdk':
+        specifier: ^1.4.2
+        version: 1.4.2
       '@nuxt/image':
         specifier: 1.10.0
         version: 1.10.0(@netlify/blobs@9.1.2)(db0@0.3.2)(ioredis@5.6.1)(magicast@0.3.5)
@@ -287,6 +290,9 @@ packages:
 
   '@dabh/diagnostics@2.0.3':
     resolution: {integrity: sha512-hrlQOIi7hAfzsMqlGSFyVucrx38O+j6wiGOf//H2ecvIEqYN4ADBSS2iLMh5UFyDunCNniUIPk/q3riFv45xRA==}
+
+  '@databuddy/sdk@1.4.2':
+    resolution: {integrity: sha512-WhfjUcfmKQrl1qSmFTfwd/suvN02O/SIpJSEJda+f9zJYzRNCiYx6oPOgGuzmB0fdYEtNM/GQxfblN+7AaaNGw==}
 
   '@datocms/cma-client-node@4.0.2':
     resolution: {integrity: sha512-tiduimUbtH28Uc5gcBZu5QriMXdjb1vnw60hp6n5CKicVDQTm7703W3yp0fVWyDCW4gKLS66rfKzAobPn9zgyA==}
@@ -6650,6 +6656,8 @@ snapshots:
       colorspace: 1.1.4
       enabled: 2.0.0
       kuler: 2.0.0
+
+  '@databuddy/sdk@1.4.2': {}
 
   '@datocms/cma-client-node@4.0.2':
     dependencies:

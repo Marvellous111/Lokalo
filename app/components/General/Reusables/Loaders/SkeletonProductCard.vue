@@ -1,8 +1,14 @@
 <script lang="ts" setup>
+const props = defineProps({
+  size: {
+    type: String,
+    default: 'small'
+  }
+})
 </script>
 
 <template>
-  <div to="/" class="product-card-wrapper">
+  <div to="/" class="product-card-wrapper" :class="props.size">
     <div class="image-wrapper">
     </div>
     <div class="title">
@@ -20,7 +26,7 @@
   row-gap: 5px;
   position: relative;
   width: 175px;
-  overflow: hidden;
+  // overflow-y: hidden;
   border-radius: 15px 15px 0px 0px;
   &::before {
     animation: loading 1.5s linear infinite;
@@ -33,40 +39,84 @@
     width: 90px;
     filter: blur(5px);
   }
-  .image-wrapper {
-    border-radius: 15px;
+
+  &.small {
     width: 175px;
-    height: 175px;
-    //border: 1px solid black;
-    background: rgba(128, 128, 128, 0.4);
-    box-shadow: 0.4px 0.2px 6px 1px rgba(18, 18, 18, 0.1);
-    overflow: hidden;
+
+    .image-wrapper {
+      border-radius: 15px;
+      width: 175px;
+      height: 175px;
+      //border: 1px solid black;
+      background: rgba(128, 128, 128, 0.4);
+      box-shadow: 0.4px 0.2px 6px 1px rgba(18, 18, 18, 0.1);
+      overflow: hidden;
+    }
+    .title {
+      width: stretch;
+      text-align: left;
+      //display: flex;
+      align-items: center;
+      height: fit-content;
+      display: -webkit-box; /* Enables the flexbox-based layout */
+      -webkit-line-clamp: 1; /* Limits text to 1 lines */
+      -webkit-box-orient: vertical; /* Specifies vertical orientation */
+      overflow: hidden; 
+      width: 100px;
+      height: 16px;
+      border-radius: 15px;
+      box-shadow: 0.4px 0.2px 6px 1px rgba(18, 18, 18, 0.1);
+      background: rgba(128, 128, 128, 0.4);
+    }
+    .price-rating {
+      display: flex;
+      width: 50px;
+      text-align: left;
+      align-items: center;
+      height: 12px;
+      border-radius: 10px;
+      box-shadow: 0.4px 0.2px 6px 1px rgba(18, 18, 18, 0.1);
+      background: rgba(128, 128, 128, 0.4);
+    }
   }
-  .title {
-    width: stretch;
-    text-align: left;
-    //display: flex;
-    align-items: center;
-    height: fit-content;
-    display: -webkit-box; /* Enables the flexbox-based layout */
-    -webkit-line-clamp: 1; /* Limits text to 1 lines */
-    -webkit-box-orient: vertical; /* Specifies vertical orientation */
-    overflow: hidden; 
-    width: 100px;
-    height: 16px;
-    border-radius: 15px;
-    box-shadow: 0.4px 0.2px 6px 1px rgba(18, 18, 18, 0.1);
-    background: rgba(128, 128, 128, 0.4);
-  }
-  .price-rating {
-    display: flex;
-    width: 50px;
-    text-align: left;
-    align-items: center;
-    height: 12px;
-    border-radius: 10px;
-    box-shadow: 0.4px 0.2px 6px 1px rgba(18, 18, 18, 0.1);
-    background: rgba(128, 128, 128, 0.4);
+  &.large {
+    width: 200px;
+    
+    .image-wrapper {
+      border-radius: 15px;
+      width: 200px;
+      height: 200px;
+      //border: 1px solid black;
+      background: rgba(128, 128, 128, 0.4);
+      box-shadow: 0.4px 0.2px 6px 1px rgba(18, 18, 18, 0.1);
+      overflow: hidden;
+    }
+    .title {
+      width: stretch;
+      text-align: left;
+      //display: flex;
+      align-items: center;
+      height: fit-content;
+      display: -webkit-box; /* Enables the flexbox-based layout */
+      -webkit-line-clamp: 1; /* Limits text to 1 lines */
+      -webkit-box-orient: vertical; /* Specifies vertical orientation */
+      overflow: hidden; 
+      width: 100px;
+      height: 16px;
+      border-radius: 15px;
+      box-shadow: 0.4px 0.2px 6px 1px rgba(18, 18, 18, 0.1);
+      background: rgba(128, 128, 128, 0.4);
+    }
+    .price-rating {
+      display: flex;
+      width: 50px;
+      text-align: left;
+      align-items: center;
+      height: 12px;
+      border-radius: 10px;
+      box-shadow: 0.4px 0.2px 6px 1px rgba(18, 18, 18, 0.1);
+      background: rgba(128, 128, 128, 0.4);
+    }
   }
 }
 @keyframes loading {

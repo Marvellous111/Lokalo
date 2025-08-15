@@ -2,6 +2,9 @@
 import { Globe, ChevronDown, ShoppingBag, MapPinned } from 'lucide-vue-next';
 import { computed, ref, watch } from 'vue';
 
+
+const route = useRoute();
+
 //var toast_type = ref<string|null>(null)
 const toastWrapper = ref<HTMLElement|null>(null);
 const locStore = useLocStore();
@@ -163,6 +166,9 @@ watch(error_status, (newValue) => {
             </div>
             <span class="geist-medium">Map</span>
           </NuxtLink>
+          <!-- <div v-if="route.name === 'deals-category'">
+            <GeneralReusablesSearchBar />
+          </div> -->
         </div>
       </section>
       <section class="signin-wrapper">

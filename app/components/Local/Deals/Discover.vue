@@ -111,7 +111,9 @@ const checkDisplayLoad = computed(() => stateStore.displayLoad);
       .texts-wrapper {
         width: stretch;
         .discover-text {
-          width: 380px;
+          width: stretch;
+          margin-left: 10px;
+          margin-right: 10px;
           font-size: 32px;
           line-height: 34px;
         }

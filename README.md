@@ -45,13 +45,14 @@ TODOs:
 -[x] Implement new search bar for normal search function in mobile mode
 -[ ] Implement deal of the day display well
 -[ ] Implement each product page as well
--[ ] Implement placeholder images for loading skeletons
+-[x] Implement placeholder images for loading skeletons
 -[ ] Implement normal loading icon for buttons
 -[ ] Implement Map page with its search function
 -[ ] Implement Map collision with deals page
 -[ ] Implement globe toast
 -[ ] Implement mobile version of experience
-
+-[ ] Add cache for the data to be stored locally (and perhaps online)
+-[ ] Add function to ensure that if there is no internet it simply pulls the already called data from cache instead of requesting data again
 
 Fetch Product Flow:
 - User enters the website making a request.
